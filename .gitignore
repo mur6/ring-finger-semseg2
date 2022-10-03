@@ -1,2 +1,12 @@
 .venv/
-*.pyc
+
+# python compiled / optimized
+__pycache__/
+*.py[cod]
+*$py.class
+
+# maxos
+.DS_Store
+
+# other
+data/outputs/

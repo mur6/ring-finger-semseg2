@@ -8,7 +8,7 @@ import torch
 from PIL import Image
 from transformers import SegformerFeatureExtractor, SegformerForSemanticSegmentation
 
-from src.model.orig_model import OrigSegformerForSemanticSegmentation, get_model
+from src.model import OrigSegformerForSemanticSegmentation, get_model
 
 
 def get_images(samples_dir):
