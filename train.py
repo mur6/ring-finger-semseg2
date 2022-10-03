@@ -20,8 +20,8 @@ from torchvision.transforms import Resize, ToTensor
 from transformers import SegformerDecodeHead, SegformerFeatureExtractor, SegformerForSemanticSegmentation
 from transformers.models.segformer.modeling_segformer import SegformerMLP, SegformerModel
 
-from dataset2 import RingFingerDataset
-from src.model.orig_model import get_model
+from src.dataset import RingFingerDataset
+from src.model import get_model
 
 base_data_dir = Path("../blender-for-finger-segmentation/data2/")
 
