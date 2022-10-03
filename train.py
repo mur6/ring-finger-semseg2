@@ -23,18 +23,7 @@ from transformers.models.segformer.modeling_segformer import SegformerMLP, Segfo
 from dataset2 import RingFingerDataset
 from src.model.orig_model import get_model
 
-# base_data_dir = Path("datasets")
 base_data_dir = Path("../blender-for-finger-segmentation/data2/")
-
-# from dataset import ImageSegmentationDataset
-# train_dataset = ImageSegmentationDataset(
-#     root_dir=base_data_dir / "training", feature_extractor=feature_extractor_inference, transforms=None
-# )
-# valid_dataset = ImageSegmentationDataset(
-#     root_dir=base_data_dir / "validation", feature_extractor=feature_extractor_inference, transforms=None, train=False
-# )
-
-# from dataset import ImageSegmentationDataset
 
 
 feature_extractor_inference = SegformerFeatureExtractor(do_random_crop=False, do_pad=False)

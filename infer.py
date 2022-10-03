@@ -33,49 +33,37 @@ def draw_dot(ax, point):
     c = patches.Circle(xy=(x, y), radius=4, color="red")
     ax.add_patch(c)
 
+def get_model():
+    model_dir = "models/custom_segsem_08/"
+    model = OrigSegformerForSemanticSegmentation.from_pretrained(model_dir)
+    model.eval()
 
-model_dir = "models/custom_segsem_08/"
-model = OrigSegformerForSemanticSegmentation.from_pretrained(model_dir)
-model.eval()
+    feature_extractor_inference = SegformerFeatureExtractor(do_random_crop=False, do_pad=False)
+    inputs = feature_extractor_inference(images=images, return_tensors="pt")
 
-feature_extractor_inference = SegformerFeatureExtractor(do_random_crop=False, do_pad=False)
-inputs = feature_extractor_inference(images=images, return_tensors="pt")
+def infer():
+    with torch.no_grad():
+        _, points = model(**inputs)
+        points = points.numpy()
+        points = points * 112 + 112
+        print(points)
 
-with torch.no_grad():
-    _, points = model(**inputs)
-    # # shape (batch_size, num_labels, height, width)
-    print(points)
-    points = points.numpy()
-    print(points)
+    fig, axes = plt.subplots(2, 1, figsize=(7, 8))
+    for i, (ax, image) in enumerate(zip(axes, images)):
+        ax.imshow(image)
+        # ax.imshow(masks.numpy().transpose(1, 2, 0))
+        point = points[i]
+        # print(p)
+        draw_dot(ax, point[:2])
+        draw_dot(ax, point[2:])
 
-    # logits = outputs.logits
-    # print(f"outputs: {type(outputs)}")
-    # print(f"outputs.logis: {logits.shape}")
+    plt.show()
 
-    # masks = data[1]
-    # masks[masks==2] = -1
-    # points = data[2].numpy()
-    # outputs = model(masks=masks.unsqueeze(0))
-    points = points * 112 + 112
-    print(points)
 
-fig, axes = plt.subplots(2, 1, figsize=(7, 8))
-for i, (ax, image) in enumerate(zip(axes, images)):
-    ax.imshow(image)
-    # ax.imshow(masks.numpy().transpose(1, 2, 0))
-    point = points[i]
-    # print(p)
-    draw_dot(ax, point[:2])
-    draw_dot(ax, point[2:])
+def main():
+    pass
 
-plt.show()
 
-# #, points)
-# print(masks.shape, points.shape)
-# fig, ax = plt.subplots(1, 2)
-# ax[0].imshow(data[0].numpy().transpose(1, 2, 0))
-# ax[1].imshow(masks)
+if __name__ == "__main__":
+    main()
 
-# # draw_dot(ax[1], points[:2])
-# # draw_dot(ax[1], points[2:])
-# plt.show()
