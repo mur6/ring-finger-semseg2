@@ -23,13 +23,16 @@ from transformers.models.segformer.modeling_segformer import SegformerMLP, Segfo
 from src.dataset import RingFingerDataset
 from src.model import get_model
 
-base_data_dir = Path("../blender-for-finger-segmentation/data2/")
+#base_data_dir = Path("../blender-for-finger-segmentation/data2/")
 
 from torch import nn
 from torch.utils.data import DataLoader
+import torch
+from sklearn.metrics import accuracy_score
+from tqdm import tqdm
+from transformers import AdamW
 
-
-def make_dataloaders():
+def make_dataloaders(base_data_dir):
     feature_extractor_inference = SegformerFeatureExtractor(do_random_crop=False, do_pad=False)
 
     train_dataset = RingFingerDataset(
@@ -49,14 +52,9 @@ def make_dataloaders():
     valid_dataloader = DataLoader(valid_dataset, batch_size=8)
     return train_dataloader, valid_dataloader
 
-def prepare_model()
+
+def prepare_model():
     model = get_model()
-
-    import torch
-    from sklearn.metrics import accuracy_score
-    from tqdm import tqdm
-    from transformers import AdamW
-
     criterion = nn.MSELoss()
     optimizer = AdamW(model.parameters(), lr=0.00006)
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -64,6 +62,7 @@ def prepare_model()
     print("Model Initialized!")
 
 # pbar = tqdm(train_dataloader)
+
 def train():
     for epoch in range(1, 1 + 1):
         print("Epoch:", epoch)
