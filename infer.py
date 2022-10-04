@@ -1,12 +1,10 @@
-import sys
 from pathlib import Path
 
 import matplotlib.patches as patches
 import matplotlib.pyplot as plt
-import numpy as np
 import torch
 from PIL import Image
-from transformers import SegformerFeatureExtractor, SegformerForSemanticSegmentation
+from transformers import SegformerFeatureExtractor
 
 from src.model import OrigSegformerForSemanticSegmentation, get_model
 
