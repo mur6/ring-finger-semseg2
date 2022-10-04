@@ -10,14 +10,14 @@ from PIL import Image
 from skimage import measure
 from torch.utils.data import Dataset
 from torchvision import transforms
-from torchvision import transforms as transforms
-from torchvision.transforms import Resize, ToTensor
+# from torchvision import transforms as transforms
+# from torchvision.transforms import Resize, ToTensor
 
-albumentations_transform = A.Compose(
-    [
-        A.Resize(224, 224),
-    ]
-)
+# albumentations_transform = A.Compose(
+#     [
+#         A.Resize(224, 224),
+#     ]
+# )
 
 
 to_tensor = ToTensorV2()
