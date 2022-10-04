@@ -184,7 +184,6 @@ class OrigSegformerForSemanticSegmentation(SegformerForSemanticSegmentation):
 def get_model(model_dir):
     id2label = {0: "unlabeled", 1: "hand", 2: "mat"}
     label2id = {v: k for k, v in id2label.items()}
-    model_dir = "models/segformer_b2/"
     model = OrigSegformerForSemanticSegmentation.from_pretrained(model_dir)
     # model = OrigSegformerForSemanticSegmentation.from_pretrained(
     #     "nvidia/mit-b2",

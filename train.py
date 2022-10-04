@@ -31,8 +31,7 @@ from src.model import get_model
 # pbar = tqdm(train_dataloader)
 
 
-def train(*, max_epoch, train_dataloader, valid_dataloader):
-    model = get_model()
+def train(*, model, max_epoch, train_dataloader, valid_dataloader):
     criterion = nn.MSELoss()
     optimizer = AdamW(model.parameters(), lr=0.00006)
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -89,9 +88,8 @@ def main(cfg):
     max_epoch = int(cfg.config.max_epoch)
     base_data_dir = Path(cfg.config.base_data_dir)
     train_dataset, valid_dataset, train_dataloader, valid_dataloader = make_dataloaders(base_data_dir)
-    train(
-        max_epoch=max_epoch,
-    )
+    model = get_model(cfg.config.model_dir)
+    train(model=model, max_epoch=max_epoch, train_dataloader=train_dataloader, valid_dataloader=valid_dataloader)
 
 
 if __name__ == "__main__":
