@@ -1,8 +1,6 @@
-import pathlib
-from dataclasses import dataclass
+from pathlib import Path
 
 import hydra
-from hydra.core.config_store import ConfigStore
 from omegaconf import DictConfig, OmegaConf
 from torch.utils.data import DataLoader
 from torchvision import transforms
@@ -10,15 +8,6 @@ from transformers import SegformerFeatureExtractor
 from transformers.models.segformer.modeling_segformer import SegformerMLP, SegformerModel
 
 from src.dataset import RingFingerDataset
-
-
-@dataclass
-class Config:
-    base_data_dir: pathlib.Path
-
-
-cs = ConfigStore.instance()
-cs.store(name="config/local", node=Config)
 
 
 def make_dataloaders(base_data_dir):
@@ -39,16 +28,14 @@ def make_dataloaders(base_data_dir):
 
     train_dataloader = DataLoader(train_dataset, batch_size=8, shuffle=True)
     valid_dataloader = DataLoader(valid_dataset, batch_size=8)
-    return train_dataloader, valid_dataloader
+    return train_dataset, valid_dataset, train_dataloader, valid_dataloader
 
 
 @hydra.main(version_base=None, config_name="config/local")
 def main(cfg):
-    print(f"Orig working directory:  {hydra.utils.get_original_cwd()}")
-    print(OmegaConf.to_yaml(cfg))
-    base_data_dir = cfg.config.base_data_dir
+    base_data_dir = Path(cfg.config.base_data_dir)
     print(type(base_data_dir))
-    # make_dataloaders
+    train_dataset, valid_dataset, train_dataloader, valid_dataloader = make_dataloaders(base_data_dir)
 
 
 if __name__ == "__main__":
