@@ -181,7 +181,7 @@ class OrigSegformerForSemanticSegmentation(SegformerForSemanticSegmentation):
         return logits, points
 
 
-def get_model():
+def get_model(model_dir):
     id2label = {0: "unlabeled", 1: "hand", 2: "mat"}
     label2id = {v: k for k, v in id2label.items()}
     model_dir = "models/segformer_b2/"
@@ -198,7 +198,8 @@ def get_model():
 
 
 if __name__ == "__main__":
-    model = get_model()
+    model_dir = "models/segformer_b2/"
+    model = get_model(model_dir)
     logits, points = model(torch.rand(1, 3, 512, 512))
     print(logits.shape, points.shape)
     # print(model)

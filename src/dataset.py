@@ -98,7 +98,6 @@ class RingFingerDataset(Dataset):
 if __name__ == "__main__":
     from transformers import SegformerFeatureExtractor
 
-    # from dataset2 import RingFingerDataset
     base_data_dir = Path("../blender-for-finger-segmentation/data2/")
 
     feature_extractor_inference = SegformerFeatureExtractor(do_random_crop=False, do_pad=False)
