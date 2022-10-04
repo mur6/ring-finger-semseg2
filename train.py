@@ -32,26 +32,6 @@ from sklearn.metrics import accuracy_score
 from tqdm import tqdm
 from transformers import AdamW
 
-def make_dataloaders(base_data_dir):
-    feature_extractor_inference = SegformerFeatureExtractor(do_random_crop=False, do_pad=False)
-
-    train_dataset = RingFingerDataset(
-        base_data_dir / "training",
-        "data/datasets/contour_checked_numbers_training.json",
-        feature_extractor=feature_extractor_inference,
-        transform=None,
-    )
-    valid_dataset = RingFingerDataset(
-        base_data_dir / "validation",
-        "data/datasets/contour_checked_numbers_validation.json",
-        feature_extractor=feature_extractor_inference,
-        transform=None,
-    )
-
-    train_dataloader = DataLoader(train_dataset, batch_size=8, shuffle=True)
-    valid_dataloader = DataLoader(valid_dataset, batch_size=8)
-    return train_dataloader, valid_dataloader
-
 
 def prepare_model():
     model = get_model()

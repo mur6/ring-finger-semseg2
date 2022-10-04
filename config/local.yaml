@@ -1,5 +1,6 @@
+base_data_dir: ../blender-for-finger-segmentation/data2/
+
 data:
-  base_data_dir: ../blender-for-finger-segmentation/data2/
   zippity: ${node.loompa} # Value interpolation
   do: "oompa ${node.loompa}" # String interpolation
   waldo: ???
