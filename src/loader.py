@@ -10,7 +10,7 @@ from transformers.models.segformer.modeling_segformer import SegformerMLP, Segfo
 from src.dataset import RingFingerDataset
 
 
-def make_dataloaders(base_data_dir):
+def make_dataloaders(base_data_dir, batch_size=8):
     feature_extractor_inference = SegformerFeatureExtractor(do_random_crop=False, do_pad=False)
 
     train_dataset = RingFingerDataset(
@@ -26,8 +26,8 @@ def make_dataloaders(base_data_dir):
         transform=None,
     )
 
-    train_dataloader = DataLoader(train_dataset, batch_size=8, shuffle=True)
-    valid_dataloader = DataLoader(valid_dataset, batch_size=8)
+    train_dataloader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True)
+    valid_dataloader = DataLoader(valid_dataset, batch_size=batch_size)
     return train_dataset, valid_dataset, train_dataloader, valid_dataloader
 
 
